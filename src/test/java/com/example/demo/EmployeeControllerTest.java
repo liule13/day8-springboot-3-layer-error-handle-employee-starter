@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.Exception.EmployeeException;
 import com.example.demo.entity.Employee;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,7 +10,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.server.ResponseStatusException;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -19,15 +22,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class EmployeeControllerTest {
     @Autowired
     private MockMvc mockMvc;
-
-//    private static Employee employee(String name, int age, String gender, double salary) {
-//        Employee e = new Employee();
-//        e.setName(name);
-//        e.setAge(age);
-//        e.setGender(gender);
-//        e.setSalary(salary);
-//        return e;
-//    }
 
     private void createJohnSmith() throws Exception {
         Gson gson = new Gson();
@@ -172,10 +166,10 @@ public class EmployeeControllerTest {
                 .andExpect(jsonPath("$.age").value(28))
                 .andExpect(jsonPath("$.gender").value("MALE"))
                 .andExpect(jsonPath("$.salary").value(60000.0))
-                .andExpect(jsonPath("$.state").value("ACTIVE"));
+                .andExpect(jsonPath("$.state").value(true));
         mockMvc.perform(delete("/employees/" + 1));
         mockMvc.perform(get("/employees/" + 1))
-                .andExpect(jsonPath("$.state").value("INACTIVE"));
+                .andExpect(jsonPath("$.state").value(false));
     }
 
     @Test

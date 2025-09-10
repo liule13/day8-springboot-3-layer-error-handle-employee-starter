@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class EmployeeService {
@@ -40,14 +41,20 @@ public class EmployeeService {
         if (employee.getAge()>=30&& employee.getSalary()<=20000) {
             throw new EmployeeException("Employee age is greater than 30, salary should be greater than 20000");
         }
-        employee.setState(EmployeeStateEnum.ACTIVE.getState());
+        employee.setState(true);
         return employeeRepository.createEmployee(employee);
     }
 
     public Employee updateEmployee(int id, Employee updatedEmployee) {
         Employee employee = employeeRepository.getEmployeeById(id);
+
         if (employee == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found with id: " + id);
+        }
+
+        if (!employee.getState()) {
+            System.out.println(employee.getState());
+            throw new EmployeeException("Cannot update inactive employee with id: " + id);
         }
         return employeeRepository.updateEmployee(employee, updatedEmployee);
     }

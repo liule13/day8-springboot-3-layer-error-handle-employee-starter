@@ -21,13 +21,9 @@ public class CompanyControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @Autowired
-    private Gson gson;
-
-//    @Autowired
-//    private CompanyController companyController;
+    private Gson gson = new Gson();
 
     private void createSpring() throws Exception {
-        Gson gson = new Gson();
         mockMvc.perform(post("/companies").contentType(MediaType.APPLICATION_JSON).content(gson.toJson(new Company(null, "Spring"))));
     }
 

@@ -115,6 +115,27 @@ public class EmployeeControllerTest {
                 .andExpect(jsonPath("$.gender").value("MALE"))
                 .andExpect(jsonPath("$.salary").value(60000));
     }
+//    @Test
+//    void should_throw_exception_when_create_employee_of_greater_than_65_and_less_than_18() throws Exception {
+//        String requestBody = """
+//                        {
+//                            "name": "John Smith",
+//                            "age": 28,
+//                            "gender": "MALE",
+//                            "salary": 60000
+//                        }
+//                """;
+//
+//        mockMvc.perform(post("/employees")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(requestBody))
+//                .andExpect(status().isCreated())
+//                .andExpect(jsonPath("$.id").isNumber())
+//                .andExpect(jsonPath("$.name").value("John Smith"))
+//                .andExpect(jsonPath("$.age").value(28))
+//                .andExpect(jsonPath("$.gender").value("MALE"))
+//                .andExpect(jsonPath("$.salary").value(60000));
+//    }
 
     @Test
     void should_return_200_with_empty_body_when_no_employee() throws Exception {

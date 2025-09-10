@@ -194,8 +194,9 @@ public class EmployeeControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(5));
     }
+
     @Test
-    void should_throw_exception_when_update_employee() throws Exception {
+    void should_return_404_when_update_invalid_employee() throws Exception {
         createJohnSmith();
         String requestBody = """
                         {
@@ -211,6 +212,7 @@ public class EmployeeControllerTest {
                 .andExpect(status().isNotFound());
 
     }
+
     @Test
     void should_return_404_when_create_employee_invalid_age() throws Exception {
         String requestBody = """
@@ -225,6 +227,12 @@ public class EmployeeControllerTest {
         mockMvc.perform(post("/employees")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void should_status_404_when_delete_employee_not_existed() throws Exception {
+        mockMvc.perform(delete("/employees/" + 1))
                 .andExpect(status().isNotFound());
     }
 }

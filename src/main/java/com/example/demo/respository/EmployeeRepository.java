@@ -1,5 +1,6 @@
 package com.example.demo.respository;
 
+import com.example.demo.constant.EmployeeStateEnum;
 import com.example.demo.entity.Employee;
 import org.springframework.stereotype.Repository;
 
@@ -45,8 +46,8 @@ public class EmployeeRepository {
         return employee;
     }
 
-    public void deleteEmployee(int id) {
-        employees.remove(id);
+    public void deleteEmployee(Employee employee) {
+        employee.setState(EmployeeStateEnum.INACTIVE.getState());
     }
 
     public void clear() {

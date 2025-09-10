@@ -40,7 +40,7 @@ public class EmployeeService {
         if (employee.getAge()>=30&& employee.getSalary()<=20000) {
             throw new EmployeeException("Employee age is greater than 30, salary should be greater than 20000");
         }
-        employee.setState(String.valueOf(EmployeeStateEnum.ACTIVE));
+        employee.setState(EmployeeStateEnum.ACTIVE.getState());
         return employeeRepository.createEmployee(employee);
     }
 
@@ -53,10 +53,11 @@ public class EmployeeService {
     }
 
     public void deleteEmployee(int id) {
-        if (employeeRepository.getEmployeeById(id) == null) {
+        Employee employee = employeeRepository.getEmployeeById(id);
+        if (employee == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found with id: " + id);
         }
-        employeeRepository.deleteEmployee(id);
+        employeeRepository.deleteEmployee(employee);
     }
 
     public void clear() {

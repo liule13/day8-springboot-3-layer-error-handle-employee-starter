@@ -171,9 +171,11 @@ public class EmployeeControllerTest {
                 .andExpect(jsonPath("$.name").value("John Smith"))
                 .andExpect(jsonPath("$.age").value(28))
                 .andExpect(jsonPath("$.gender").value("MALE"))
-                .andExpect(jsonPath("$.salary").value(60000.0));
-        mockMvc.perform(delete("/employees/" + 1))
-                .andExpect(status().isNoContent());
+                .andExpect(jsonPath("$.salary").value(60000.0))
+                .andExpect(jsonPath("$.state").value("ACTIVE"));
+        mockMvc.perform(delete("/employees/" + 1));
+        mockMvc.perform(get("/employees/" + 1))
+                .andExpect(jsonPath("$.state").value("INACTIVE"));
     }
 
     @Test

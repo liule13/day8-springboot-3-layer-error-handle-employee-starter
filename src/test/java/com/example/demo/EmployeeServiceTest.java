@@ -48,6 +48,4 @@ public class EmployeeServiceTest {
         Employee employeeResult = employeeService.createEmployee(employee);
         assertEquals("ACTIVE", employeeResult.getState());
     }
-
-
 }

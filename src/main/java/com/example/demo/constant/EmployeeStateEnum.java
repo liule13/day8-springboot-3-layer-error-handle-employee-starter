@@ -3,8 +3,8 @@ package com.example.demo.constant;
 import com.example.demo.entity.Employee;
 
 public enum EmployeeStateEnum {
-    ACTIVE("Active"),
-    INACTIVE("Inactive");
+    ACTIVE("ACTIVE"),
+    INACTIVE("INACTIVE");
 
     private final String state;
 

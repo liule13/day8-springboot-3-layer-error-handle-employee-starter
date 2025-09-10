@@ -40,8 +40,8 @@ public class CompanyRepository {
                 .orElse(null);
     }
 
-    public void deleteCompany(int id) {
-        companies.remove(id);
+    public void deleteCompany(Company company) {
+        companies.remove(company);
     }
 
     public void clear() {

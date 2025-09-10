@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.entity.Employee;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -54,7 +55,6 @@ public class EmployeeControllerTest {
 
     @Test
     void should_return_all_employee() throws Exception {
-
         createJohnSmith();
         createJaneDoe();
 
@@ -68,6 +68,7 @@ public class EmployeeControllerTest {
     void should_return_employee_when_employee_found() throws Exception {
         createJohnSmith();
         createJaneDoe();
+
         mockMvc.perform(get("/employees/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -124,7 +125,6 @@ public class EmployeeControllerTest {
                 .andExpect(jsonPath("$").isEmpty());
     }
 
-    //
     @Test
     void should_return_200_with_employee_list() throws Exception {
         createJohnSmith();
@@ -180,11 +180,9 @@ public class EmployeeControllerTest {
     @Test
     void should_status_200_and_return_paged_employee_list() throws Exception {
         createJohnSmith();
-        createJaneDoe();
-        createJaneDoe();
-        createJaneDoe();
-        createJaneDoe();
-        createJaneDoe();
+        for (int i = 0; i < 5; i++) {
+            createJaneDoe();
+        }
         mockMvc.perform(get("/employees?page=1&size=5")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

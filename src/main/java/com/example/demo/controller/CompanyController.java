@@ -1,5 +1,6 @@
-package com.example.demo;
+package com.example.demo.controller;
 
+import com.example.demo.entity.Company;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -12,6 +13,7 @@ import java.util.List;
 public class CompanyController {
     private final List<Company> companies = new ArrayList<>();
 
+    @DeleteMapping("/all")
     public void empty() {
         companies.clear();
     }

@@ -27,14 +27,18 @@ public class EmployeeControllerTest {
 //        e.setSalary(salary);
 //        return e;
 //    }
-//
-//    private static Employee johnSmith() {
-//        return employee("John Smith", 28, "MALE", 60000.0);
-//    }
-//
-//    private static Employee janeDoe() {
-//        return employee("Jane Doe", 22, "FEMALE", 60000.0);
-//    }
+
+    private void createJohnSmith() throws Exception {
+        Gson gson = new Gson();
+        String John = gson.toJson(new Employee(null, "John Smith", 28, "MALE", 60000.0));
+        mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).content(John));
+    }
+
+    private void createJaneDoe() throws Exception {
+        Gson gson = new Gson();
+        String Jane = gson.toJson(new Employee(null, "Jane Smith", 28, "FEMALE", 60000.0));
+        mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).content(Jane));
+    }
 
     @BeforeEach
     void cleanEmployees() {
@@ -51,11 +55,8 @@ public class EmployeeControllerTest {
     @Test
     void should_return_all_employee() throws Exception {
 
-        Gson gson = new Gson();
-        String John = gson.toJson(new Employee(null, "John Smith", 28, "MALE", 60000.0));
-        String Jane = gson.toJson(new Employee(null, "Jane Smith", 28, "FEMALE", 60000.0));
-        mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).content(John));
-        mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_JSON).content(Jane));
+        createJohnSmith();
+        createJaneDoe();
 
         mockMvc.perform(get("/employees")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -65,8 +66,8 @@ public class EmployeeControllerTest {
 
 //    @Test
 //    void should_return_employee_when_employee_found() throws Exception {
-//        Employee expect = employeeController.createEmployee(johnSmith());
-//
+//        createJohnSmith();
+//        createJaneDoe();
 //        mockMvc.perform(get("/employees/1")
 //                        .contentType(MediaType.APPLICATION_JSON))
 //                .andExpect(status().isOk())
@@ -76,7 +77,7 @@ public class EmployeeControllerTest {
 //                .andExpect(jsonPath("$.gender").value(expect.getGender()))
 //                .andExpect(jsonPath("$.salary").value(expect.getSalary()));
 //    }
-//
+
 //    @Test
 //    void should_return_male_employee_when_employee_found() throws Exception {
 //        Employee expect = employeeController.createEmployee(johnSmith());

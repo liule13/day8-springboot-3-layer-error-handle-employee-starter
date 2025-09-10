@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import com.example.demo.Exception.EmployeeException;
 import com.example.demo.entity.Employee;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,9 +9,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.server.ResponseStatusException;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -107,7 +104,8 @@ public class EmployeeControllerTest {
                 .andExpect(jsonPath("$.name").value("John Smith"))
                 .andExpect(jsonPath("$.age").value(28))
                 .andExpect(jsonPath("$.gender").value("MALE"))
-                .andExpect(jsonPath("$.salary").value(60000));
+                .andExpect(jsonPath("$.salary").value(60000))
+                .andExpect(jsonPath("$.state").value(true));
     }
 //    @Test
 //    void should_throw_exception_when_create_employee_of_greater_than_65_and_less_than_18() throws Exception {
@@ -158,15 +156,6 @@ public class EmployeeControllerTest {
     @Test
     void should_status_204_when_delete_employee() throws Exception {
         createJohnSmith();
-        mockMvc.perform(get("/employees/1")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.name").value("John Smith"))
-                .andExpect(jsonPath("$.age").value(28))
-                .andExpect(jsonPath("$.gender").value("MALE"))
-                .andExpect(jsonPath("$.salary").value(60000.0))
-                .andExpect(jsonPath("$.state").value(true));
         mockMvc.perform(delete("/employees/" + 1));
         mockMvc.perform(get("/employees/" + 1))
                 .andExpect(jsonPath("$.state").value(false));
@@ -204,5 +193,22 @@ public class EmployeeControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(5));
+    }
+    @Test
+    void should_throw_exception_when_update_employee() throws Exception {
+        createJohnSmith();
+        String requestBody = """
+                        {
+                            "name": "John Smith",
+                            "age": 29,
+                            "gender": "MALE",
+                            "salary": 65000.0
+                        }
+                """;
+        mockMvc.perform(put("/employees/999")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isNotFound());
+
     }
 }

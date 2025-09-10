@@ -1,12 +1,10 @@
 package com.example.demo.respository;
 
-import com.example.demo.constant.EmployeeStateEnum;
 import com.example.demo.entity.Employee;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Stream;
 
 @Repository

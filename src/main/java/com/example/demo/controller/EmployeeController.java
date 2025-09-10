@@ -38,7 +38,6 @@ public class EmployeeController {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Employee updateEmployee(@PathVariable int id, @RequestBody Employee updatedEmployee) {
-
         return employeeService.updateEmployee(id, updatedEmployee);
     }
 

@@ -23,13 +23,13 @@ public class CompanyRepository {
     }
 
     public Company createCompany(Company company) {
-        company.setId(1);
+        company.setId(companies.size() + 1);
         companies.add(company);
         return company;
     }
 
     public Company updateCompany(Company company, Company updatedCompany) {
-        company.setId(updatedCompany.getId());
+        company.setName(updatedCompany.getName());
         return company;
     }
 

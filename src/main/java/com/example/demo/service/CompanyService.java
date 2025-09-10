@@ -41,7 +41,8 @@ public class CompanyService {
     }
 
     public void deleteCompany(int id) {
-        if (companyRepository.getCompanyById(id) == null) {
+        Company company = companyRepository.getCompanyById(id);
+        if (company == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Company not found with id: " + id);
         }
         companyRepository.deleteCompany(id);

@@ -95,23 +95,16 @@ public class CompanyControllerTest {
     @Test
     void should_return_no_content_when_delete_id_found() throws Exception {
         createSpring();
-
-        MockHttpServletRequestBuilder request = delete("/companies/1")
-                .contentType(MediaType.APPLICATION_JSON);
-
-        mockMvc.perform(request)
+        mockMvc.perform(delete("/companies/1")
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
     }
 
     @Test
     void should_return_truncated_companies_when_page_size_is_limit() throws Exception {
-        createSpring();
-        createSpring();
-        createSpring();
-        createSpring();
-        createSpring();
-        createSpring();
-        createSpring();
+        for (int i = 0; i < 8; i++){
+            createSpring();
+        }
         MockHttpServletRequestBuilder request = get("/companies?page=1&size=5")
                 .contentType(MediaType.APPLICATION_JSON);
 

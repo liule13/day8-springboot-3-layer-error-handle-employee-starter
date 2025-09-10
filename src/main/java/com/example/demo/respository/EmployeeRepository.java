@@ -1,12 +1,7 @@
 package com.example.demo.respository;
 
 import com.example.demo.entity.Employee;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,36 +37,16 @@ public class EmployeeRepository {
         return employee;
     }
 
-    public Employee updateEmployee(int id, Employee updatedEmployee) {
-        Employee found = null;
-        for (Employee e : employees) {
-            if (Objects.equals(e.getId(), id)) {
-                found = e;
-                break;
-            }
-        }
-        if (found == null) {
-            return  found;
-        }
-        found.setName(updatedEmployee.getName());
-        found.setAge(updatedEmployee.getAge());
-        found.setGender(updatedEmployee.getGender());
-        found.setSalary(updatedEmployee.getSalary());
-        return found;
+    public Employee updateEmployee(Employee employee, Employee updatedEmployee) {
+        employee.setName(updatedEmployee.getName());
+        employee.setAge(updatedEmployee.getAge());
+        employee.setGender(updatedEmployee.getGender());
+        employee.setSalary(updatedEmployee.getSalary());
+        return employee;
     }
 
     public void deleteEmployee(int id) {
-        Employee found = null;
-        for (Employee e : employees) {
-            if (e.getId() == id) {
-                found = e;
-                break;
-            }
-        }
-        if (found == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found with id: " + id);
-        }
-        employees.remove(found);
+        employees.remove(id);
     }
 
     public void clear() {

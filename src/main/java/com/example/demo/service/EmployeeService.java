@@ -37,10 +37,13 @@ public class EmployeeService {
         if (employee == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found with id: " + id);
         }
-        return employeeRepository.updateEmployee(id, updatedEmployee);
+        return employeeRepository.updateEmployee(employee, updatedEmployee);
     }
 
     public void deleteEmployee(int id) {
+        if (employeeRepository.getEmployeeById(id) == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found with id: " + id);
+        }
         employeeRepository.deleteEmployee(id);
     }
 

@@ -6,6 +6,7 @@ public class Employee {
     private Integer age;
     private String gender;
     private Double salary;
+    private String state;
 
     public Employee(Integer id, String name, Integer age, String gender, Double salary) {
         this.id = id;
@@ -13,10 +14,10 @@ public class Employee {
         this.age = age;
         this.gender = gender;
         this.salary = salary;
+
     }
 
     public Employee() {
-
     }
 
     public Integer getId() {
@@ -48,5 +49,11 @@ public class Employee {
     }
     public void setSalary(double salary) {
         this.salary = salary;
+    }
+    public String getState() {
+        return state;
+    }
+    public void setState(String state) {
+        this.state = state;
     }
 }

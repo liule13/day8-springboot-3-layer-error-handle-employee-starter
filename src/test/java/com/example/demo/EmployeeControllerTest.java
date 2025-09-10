@@ -211,4 +211,20 @@ public class EmployeeControllerTest {
                 .andExpect(status().isNotFound());
 
     }
+    @Test
+    void should_return_404_when_create_employee_invalid_age() throws Exception {
+        String requestBody = """
+                        {
+                            "name": "John Smith",
+                            "age": 38,
+                            "gender": "MALE",
+                            "salary": 6000
+                        }
+                """;
+
+        mockMvc.perform(post("/employees")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isNotFound());
+    }
 }

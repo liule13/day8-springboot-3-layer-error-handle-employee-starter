@@ -2,7 +2,6 @@ package com.example.demo.service;
 
 import com.example.demo.Exception.EmployeeException;
 import com.example.demo.entity.Employee;
-import com.example.demo.respository.EmployeeRepository;
 import com.example.demo.respository.IEmployeeRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -28,7 +27,6 @@ public class EmployeeService {
                 return employeeRepository.findAll();
             } else {
                 Pageable pageable = PageRequest.of(page-1, size);
-                int totalEmployees = employeeRepository.findAll(pageable).getSize();
                 return employeeRepository.findAll(pageable).toList();
             }
         } else {

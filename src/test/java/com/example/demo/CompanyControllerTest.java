@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
@@ -22,6 +23,8 @@ public class CompanyControllerTest {
     private MockMvc mockMvc;
     @Autowired
     private Gson gson = new Gson();
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     private void createSpring() throws Exception {
         mockMvc.perform(post("/companies").contentType(MediaType.APPLICATION_JSON).content(gson.toJson(new Company(null, "Spring"))));
@@ -29,7 +32,7 @@ public class CompanyControllerTest {
 
     @BeforeEach
     void cleanCompanies() throws Exception {
-        mockMvc.perform(delete("/companies/all"));
+        jdbcTemplate.update("TRUNCATE TABLE company;");
     }
 
     @Test
@@ -72,7 +75,7 @@ public class CompanyControllerTest {
 
     @Test
     void should_return_company_when_put_with_id_found() throws Exception {
-       createSpring();
+        createSpring();
         String requestBody = """
                 {
                     "name": "Spring2"
@@ -98,7 +101,7 @@ public class CompanyControllerTest {
 
     @Test
     void should_return_truncated_companies_when_page_size_is_limit() throws Exception {
-        for (int i = 0; i < 8; i++){
+        for (int i = 0; i < 8; i++) {
             createSpring();
         }
         MockHttpServletRequestBuilder request = get("/companies?page=1&size=5")

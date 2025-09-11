@@ -1,7 +1,6 @@
 package com.example.demo.respository;
 
 import com.example.demo.entity.Employee;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -9,7 +8,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @Repository
-public class EmployeeRepository {
+public class EmployeeRepository  {
     private final List<Employee> employees = new ArrayList<>();
 
     //getEmployees
@@ -47,10 +46,6 @@ public class EmployeeRepository {
 
     public void deleteEmployee(Employee employee) {
         employee.setState(false);
-    }
-
-    public void clear() {
-        employees.clear();
     }
 
 }

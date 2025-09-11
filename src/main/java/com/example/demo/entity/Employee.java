@@ -1,9 +1,6 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Employee {
@@ -15,6 +12,17 @@ public class Employee {
     private String gender;
     private Double salary;
     private boolean state;
+
+    @Column(name = "company_id")
+    private Integer companyId;
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
+    }
 
     public Employee(Integer id, String name, Integer age, String gender, Double salary) {
         this.id = id;

@@ -1,9 +1,8 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Company {
@@ -12,6 +11,16 @@ public class Company {
     private Integer id;
     private String name;
     private boolean active;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "company_id")
+    private List<Employee> employees;
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
 
     public Company(Integer id, String name) {
         this.id = id;
@@ -36,9 +45,11 @@ public class Company {
     public void setName(String name) {
         this.name = name;
     }
+
     public boolean isActive() {
         return active;
     }
+
     public void setActive(boolean active) {
         this.active = active;
     }

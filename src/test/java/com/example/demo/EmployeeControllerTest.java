@@ -37,7 +37,7 @@ public class EmployeeControllerTest {
 
     @BeforeEach
     void cleanEmployees() {
-        jdbcTemplate.update("TRUNCATE TABLE employees;");
+        jdbcTemplate.update("TRUNCATE TABLE employee;");
 //        jdbcTemplate.execute("DELETE FROM employees; ");
 //        jdbcTemplate.execute("ALTER TABLE employees auto_increment= 1; ");
 

@@ -21,7 +21,7 @@ public class EmployeeController {
     public List<Employee> getEmployees(@RequestParam(required = false) String gender,
                                        @RequestParam(required = false) Integer page,
                                        @RequestParam(required = false) Integer size) {
-        return employeeService.getEmployees(gender, page, size);
+        return employeeService.getEmployeeByGender(gender, page, size);
     }
 
     @GetMapping("/{id}")
@@ -45,10 +45,5 @@ public class EmployeeController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteEmployee(@PathVariable int id) {
         employeeService.deleteEmployee(id);
-    }
-
-    @DeleteMapping("/all")
-    public void empty() {
-        employeeService.clear();
     }
 }

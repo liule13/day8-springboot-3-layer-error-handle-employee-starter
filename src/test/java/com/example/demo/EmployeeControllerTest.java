@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -19,6 +20,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class EmployeeControllerTest {
     @Autowired
     private MockMvc mockMvc;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     private void createJohnSmith() throws Exception {
         Gson gson = new Gson();
@@ -33,8 +36,11 @@ public class EmployeeControllerTest {
     }
 
     @BeforeEach
-    void cleanEmployees() throws Exception {
-        mockMvc.perform(delete("/employees/all"));
+    void cleanEmployees() {
+        jdbcTemplate.update("TRUNCATE TABLE employees;");
+//        jdbcTemplate.execute("DELETE FROM employees; ");
+//        jdbcTemplate.execute("ALTER TABLE employees auto_increment= 1; ");
+
     }
 
     @Test

@@ -27,7 +27,8 @@ public class EmployeeService {
             if (page == null || size == null) {
                 return employeeRepository.findAll();
             } else {
-                Pageable pageable = PageRequest.of(page, size);
+                Pageable pageable = PageRequest.of(page-1, size);
+                int totalEmployees = employeeRepository.findAll(pageable).getSize();
                 return employeeRepository.findAll(pageable).toList();
             }
         } else {

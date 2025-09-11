@@ -45,7 +45,7 @@ public class EmployeeRepository  {
     }
 
     public void deleteEmployee(Employee employee) {
-        employee.setState(false);
+        employee.setActive(false);
     }
 
 }

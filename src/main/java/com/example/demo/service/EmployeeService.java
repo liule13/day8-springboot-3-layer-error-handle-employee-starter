@@ -57,14 +57,14 @@ public class EmployeeService {
         if (employee.getAge() >= 30 && employee.getSalary() <= 20000) {
             throw new EmployeeException("Employee age is greater than 30, salary should be greater than 20000");
         }
-        employee.setState(true);
+        employee.setActive(true);
         return employeeRepository.save(employee);
     }
 
     public Employee updateEmployee(int id, Employee updatedEmployee) {
         Employee employee = getEmployeeById(id);
 
-        if (!employee.getState()) {
+        if (!employee.getActive()) {
             throw new EmployeeException("Cannot update inactive employee with id: " + id);
         }
         updatedEmployee.setId(id);
@@ -73,7 +73,7 @@ public class EmployeeService {
 
     public void deleteEmployee(int id) {
         Employee employee = getEmployeeById(id);
-        employee.setState(false);
+        employee.setActive(false);
         employeeRepository.save(employee);
     }
 }

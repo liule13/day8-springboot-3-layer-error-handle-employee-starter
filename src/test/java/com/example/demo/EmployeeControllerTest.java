@@ -108,7 +108,7 @@ public class EmployeeControllerTest {
                 .andExpect(jsonPath("$.name").value("John Smith"))
                 .andExpect(jsonPath("$.age").value(28))
                 .andExpect(jsonPath("$.gender").value("MALE"))
-                .andExpect(jsonPath("$.state").value(true));
+                .andExpect(jsonPath("$.active").value(true));
     }
 
     @Test
@@ -139,7 +139,7 @@ public class EmployeeControllerTest {
         createJohnSmith();
         mockMvc.perform(delete("/employees/" + 1));
         mockMvc.perform(get("/employees/" + 1))
-                .andExpect(jsonPath("$.state").value(false));
+                .andExpect(jsonPath("$.active").value(false));
     }
 
     @Test

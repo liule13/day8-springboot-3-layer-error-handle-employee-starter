@@ -1,5 +1,6 @@
 package com.example.demo.dto.mapper;
 
+import com.example.demo.dto.EmployeeRequest;
 import com.example.demo.dto.EmployeeResponse;
 import com.example.demo.entity.Employee;
 import org.springframework.beans.BeanUtils;
@@ -17,4 +18,12 @@ public class EmployeeMapper {
     public List<EmployeeResponse> toEmployeeResponseList(List<Employee> employees) {
         return employees.stream().map(this::toEmployeeResponse).toList();
     }
+//    public EmployeeRequest toEmployeeRequest(Employee employee) {
+//        EmployeeRequest employeeRequest = new EmployeeRequest();
+//        BeanUtils.copyProperties(employee, employeeRequest);
+//        return employeeRequest;
+//    }
+//    public List<EmployeeRequest> toEmployeeRequestList(List<Employee> employees) {
+//        return employees.stream().map(this::toEmployeeRequest).toList();
+//    }
 }

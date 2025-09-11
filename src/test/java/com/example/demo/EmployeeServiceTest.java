@@ -48,7 +48,7 @@ public class EmployeeServiceTest {
         Employee employee = new Employee(null, "Leo Smith", 20, "MALE", 10000.0);
         when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
         Employee employeeResult = employeeService.createEmployee(employee);
-        assertTrue(employeeResult.getState());
+        assertTrue(employeeResult.getActive());
     }
 
     @Test
@@ -57,7 +57,7 @@ public class EmployeeServiceTest {
         when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
         Employee employeeResult = employeeService.createEmployee(employee);
         employeeResult.setId(1);
-        employee.setState(false);
+        employee.setActive(false);
         assertThrows(ResponseStatusException.class, () -> employeeService.updateEmployee(employeeResult.getId(), employee));
     }
 

@@ -3,6 +3,7 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "employee")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,7 +12,7 @@ public class Employee {
     private Integer age;
     private String gender;
     private Double salary;
-    private boolean state;
+    private boolean active;
 
     @Column(name = "company_id")
     private Integer companyId;
@@ -76,11 +77,11 @@ public class Employee {
         this.salary = salary;
     }
 
-    public boolean getState() {
-        return state;
+    public boolean getActive() {
+        return active;
     }
 
-    public void setState(boolean state) {
-        this.state = state;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

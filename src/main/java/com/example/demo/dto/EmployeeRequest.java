@@ -2,26 +2,21 @@ package com.example.demo.dto;
 
 import jakarta.validation.constraints.NotNull;
 
-public class EmployeeResponse {
-    private Integer id;
+public class EmployeeRequest {
     private String name;
     private Integer age;
+    @NotNull(message = "Gender cannot be null")
     private String gender;
-    private boolean active;
+    private Double salary;
+    private boolean state;
 
-
-    public EmployeeResponse(Integer id, String name, Integer age, String gender, boolean state) {
-        this.id = id;
+    public EmployeeRequest(String name, Integer age, String gender, boolean state) {
         this.name = name;
         this.age = age;
         this.gender = gender;
-        this.active = state;
+        this.state = state;
     }
-    public EmployeeResponse() {}
-
-    public Integer getId() {
-        return id;
-    }
+    public EmployeeRequest() {}
 
     public String getName() {
         return name;
@@ -35,12 +30,16 @@ public class EmployeeResponse {
         return gender;
     }
 
-    public boolean isActive() {
-        return active;
+    public Double getSalary() {
+        return salary;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setSalary(Double salary) {
+        this.salary = salary;
+    }
+
+    public boolean isState() {
+        return state;
     }
 
     public void setName(String name) {
@@ -55,7 +54,7 @@ public class EmployeeResponse {
         this.gender = gender;
     }
 
-    public void setActive(boolean state) {
-        this.active = state;
+    public void setState(boolean state) {
+        this.state = state;
     }
 }

@@ -2,7 +2,7 @@ package com.example.demo;
 
 import com.example.demo.Exception.EmployeeException;
 import com.example.demo.entity.Employee;
-import com.example.demo.respository.EmployeeRepository;
+import com.example.demo.respository.IEmployeeRepository;
 import com.example.demo.service.EmployeeService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,12 +20,12 @@ public class EmployeeServiceTest {
     @InjectMocks
     private EmployeeService employeeService;
     @Mock
-    private EmployeeRepository employeeRepository;
+    private IEmployeeRepository employeeRepository;
 
     @Test
     void should_throw_exception_when_create_employee() {
         Employee employee = new Employee(null, "John Smith", 20, "MALE", 60000.0);
-        when(employeeRepository.createEmployee(any(Employee.class))).thenReturn(employee);
+        when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
         Employee employeeResult = employeeService.createEmployee(employee);
         assertEquals(employee.getName(), employeeResult.getName());
     }
@@ -46,7 +46,7 @@ public class EmployeeServiceTest {
     @Test
     void should_set_state_active_when_create_employee() {
         Employee employee = new Employee(null, "Leo Smith", 20, "MALE", 10000.0);
-        when(employeeRepository.createEmployee(any(Employee.class))).thenReturn(employee);
+        when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
         Employee employeeResult = employeeService.createEmployee(employee);
         assertTrue(employeeResult.getState());
     }
@@ -54,7 +54,7 @@ public class EmployeeServiceTest {
     @Test
     void should_throw_exception_when_update_inactive_employee() {
         Employee employee = new Employee(null, "Leo Smith", 20, "MALE", 10000.0);
-        when(employeeRepository.createEmployee(any(Employee.class))).thenReturn(employee);
+        when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
         Employee employeeResult = employeeService.createEmployee(employee);
         employeeResult.setId(1);
         employee.setState(false);
